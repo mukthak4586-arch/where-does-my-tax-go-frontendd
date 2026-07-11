@@ -7,43 +7,32 @@ import {
 
 import { Pie } from "react-chartjs-2";
 
-ChartJS.register(ArcElement, Tooltip, Legend);
+ChartJS.register(
+  ArcElement,
+  Tooltip,
+  Legend
+);
 
-const data = {
-  labels: [
-    "Education",
-    "Healthcare",
-    "Defence",
-    "Infrastructure",
-    "Agriculture",
-  ],
-  datasets: [
-    {
-      data: [20, 15, 35, 20, 10],
-      backgroundColor: [
-        "#4CAF50",
-        "#2196F3",
-        "#F44336",
-        "#FFC107",
-        "#9C27B0",
-      ],
-    },
-  ],
-};
+function BudgetChart({ data }) {
+  const chartData = {
+    labels: data.map((item) => item.name),
 
-const options = {
-  plugins: {
-    legend: {
-      position: "bottom",
-    },
-  },
-};
+    datasets: [
+      {
+        data: data.map((item) => item.amount),
 
-export default function BudgetChart() {
+        backgroundColor: data.map((item) => item.color),
+      },
+    ],
+  };
+
   return (
-    <div style={{ width: "500px", margin: "auto" }}>
+    <div style={{ width: "500px" }}>
       <h2>Budget Distribution</h2>
-      <Pie data={data} options={options} />
+
+      <Pie data={chartData} />
     </div>
   );
 }
+
+export default BudgetChart;
